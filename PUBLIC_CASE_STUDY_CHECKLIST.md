@@ -25,7 +25,7 @@ This repo is the public portfolio surface for Deal Meal Planner. It should expla
 
 - [x] Initialize local public-case-study repo.
 - [x] Commit case-study files locally.
-- [ ] Create public GitHub repo under `legosandjoysticks`.
+- [x] Create public GitHub repo under `legosandjoysticks`.
 - [ ] Push local case-study repo to GitHub.
 - [ ] Pin public case-study repo on GitHub profile.
 - [ ] Keep private source repo private.
