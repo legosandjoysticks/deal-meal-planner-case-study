@@ -48,7 +48,7 @@ The case study makes the project legible to recruiters while keeping the source 
 
 - Product screenshots for dashboard, weekly picks, best deals, search, BOGO, meal planning, and grocery list.
 - A short no-audio demo GIF.
-- API examples that show endpoint shape without exposing private deployment details.
+- Representative local-development API examples that show endpoint shape without exposing private deployment details.
 - Written explanation of architecture, tradeoffs, learning, and next steps.
 
 ## What I Would Improve Next
