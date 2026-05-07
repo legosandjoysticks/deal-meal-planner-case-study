@@ -6,6 +6,8 @@ This is a public portfolio case study. The production source code, ingestion scr
 
 ![Deal Meal Planner demo preview](assets/demo/deal-meal-planner-demo-preview.gif)
 
+[Watch the 61-second MP4 demo](assets/demo/deal-meal-planner-demo.mp4)
+
 ## Why I Built It
 
 Weekly grocery savings are useful, but the information is scattered across store flyers, PDFs, promotional text, and time-limited weekly ads. A shopper can see a sale price, but it is hard to compare stores, identify the deals that are actually useful for meals, and turn those deals into a practical shopping plan.
