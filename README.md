@@ -95,6 +95,13 @@ Shopping-list output designed around stores, deal context, and recipe needs.
 
 The app keeps shopper-facing screens food-first. The technical endpoint walkthrough lives separately in [API_TOUR.md](API_TOUR.md).
 
+## Verification
+
+The private product repo includes a small smoke layer for the portfolio demo:
+
+- Frontend: one Playwright smoke test covers the shopper dashboard, data freshness stamp, product sections, BOGO section copy, and responsive widths.
+- Backend: pytest coverage includes admin-auth behavior plus recipe/deal-ranking guardrails.
+
 ## Engineering Decisions
 
 - Used SQLite because the project needed inspectable local data, normalized views, and a simple deployment path.
