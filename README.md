@@ -91,26 +91,9 @@ Shopping-list output designed around stores, deal context, and recipe needs.
 
 ![Grocery List](assets/screenshots/05-grocery-list.png)
 
-## API Design Examples
+## API Tour
 
-These are representative local-development requests that show the API surface without exposing private deployment details. They are included to demonstrate endpoint design, not as a public hosted API.
-
-```bash
-# Representative local health check
-curl -sS http://localhost:8000/health
-
-# Representative deal metadata request
-curl -sS http://localhost:8000/api/deals/meta
-
-# Representative smart-ranked current weekly deals request
-curl -sS "http://localhost:8000/api/deals/best?limit=10&price_mode=shelf&rank_mode=smart&flyer_kind=weekly"
-
-# Representative BOGO and promotional rows request
-curl -sS "http://localhost:8000/api/deals/bogo?limit=10"
-
-# Representative item search across stores request
-curl -sS "http://localhost:8000/api/search?q=chicken&limit_stores=10"
-```
+The app keeps shopper-facing screens food-first. The technical endpoint walkthrough lives separately in [API_TOUR.md](API_TOUR.md).
 
 ## Engineering Decisions
 
