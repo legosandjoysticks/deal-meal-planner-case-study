@@ -4,6 +4,8 @@
 
 Deal Meal Planner is a grocery deal intelligence platform that ingests weekly flyer data, normalizes inconsistent retail deals, and turns current promotions into searchable deal insights, meal ideas, and shopping-list workflows.
 
+As of June 4, 2026, the live system tracks six Northeast Ohio grocery chains and reports 1,830 current live deal rows through the production metadata endpoint.
+
 ## Problem
 
 Grocery flyers are messy. Prices appear in different formats, BOGO deals do not always have numeric prices, limited-day sales can sit next to regular weekly deals, and store pages often change layout. The user problem is simple: people want to save money on groceries. The engineering problem is harder: make inconsistent, time-sensitive retail data useful enough to plan around.
@@ -15,6 +17,7 @@ Grocery flyers are messy. Prices appear in different formats, BOGO deals do not 
 - Avoid ranking non-meal items as the best meal-planning choices.
 - Keep BOGO and promotional rows visible without misrepresenting their prices.
 - Make the frontend feel like a real product, not a data dump.
+- Keep public API examples honest as some shopper workflows move behind authentication.
 - Keep credentials, generated databases, and source code private for now.
 
 ## Approach
@@ -22,9 +25,10 @@ Grocery flyers are messy. Prices appear in different formats, BOGO deals do not 
 I designed the project as a system with four layers:
 
 1. Data acquisition and review for weekly flyers.
-2. SQLite storage and normalization for deal rows.
-3. FastAPI endpoints for product-facing deal intelligence.
-4. React screens for dashboard, weekly picks, search, BOGO, meal planning, and grocery lists.
+2. Scheduled Mac mini workflows that stage current flyer outputs and sync production-ready artifacts.
+3. Ziggy-side ingestion into SQLite storage and normalized deal views.
+4. FastAPI endpoints for product-facing deal intelligence.
+5. React screens for dashboard, weekly picks, search, BOGO, meal planning, and grocery lists.
 
 ## Key Tradeoffs
 
@@ -40,6 +44,10 @@ The lowest shelf price is not always the best deal for meal planning. A cheap be
 
 BOGO and multi-buy deals are valuable, but they cannot always be compared against shelf-price rows. Separating promo rows makes the UI more honest and easier to reason about.
 
+### Operational Split Over One Big Server
+
+The Mac mini handles flyer acquisition, staging, and scheduled pipeline runs. Ziggy runs the backend, frontend, landing page, production SQLite database, ingestion scripts, PM2 processes, and Cloudflare Tunnel. That split keeps the public product reachable while letting acquisition work happen in a more inspectable local workflow.
+
 ### Private Source, Public Case Study
 
 The case study makes the project legible to recruiters while keeping the source code, data pipeline details, and operational credentials private until the release boundary is clear.
@@ -48,13 +56,15 @@ The case study makes the project legible to recruiters while keeping the source 
 
 - Product screenshots for dashboard, weekly picks, best deals, search, BOGO, meal planning, and grocery list.
 - A short no-audio demo GIF.
-- Representative local-development API examples that show endpoint shape without exposing private deployment details.
+- Live production API proof for metadata, best deals, BOGO promotions, and weekly picks.
+- Scheduled flyer acquisition and health-check artifacts for Acme, Aldi, Giant Eagle, Heinen's, Marc's, and Meijer.
+- PM2-managed production services for backend, frontend, landing page, and Cloudflare routing on Ziggy.
 - Written explanation of architecture, tradeoffs, learning, and next steps.
 
 ## What I Would Improve Next
 
-- Add CI for backend smoke tests and frontend build.
-- Improve difficult flyer extraction paths for promotions without prices.
-- Add observability around ingestion freshness and endpoint failures.
+- Reduce duplicate flyer rows and keep improving difficult extraction paths for promotions without prices.
+- Broaden automated health checks now that scheduled ingestion exists.
 - Build a cleaner admin workflow for reviewing extracted deals.
-- Decide whether to commercialize, keep private, or selectively open-source small non-core pieces.
+- Harden auth, billing, and user-specific workflows before treating the product as a public SaaS.
+- Decide whether to selectively open-source small non-core pieces while keeping production ingestion private.

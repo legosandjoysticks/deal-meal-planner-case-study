@@ -4,6 +4,8 @@ Deal Meal Planner is an API-driven grocery deal intelligence platform that turns
 
 This is a public portfolio case study. The production source code, ingestion scripts, credentials, generated databases, and operational files are intentionally kept private.
 
+Current live proof as of June 4, 2026: the production API reports six tracked stores and 1,830 live deal rows across Acme, Aldi, Giant Eagle, Heinen's, Marc's, and Meijer.
+
 ![Deal Meal Planner demo preview](assets/demo/deal-meal-planner-demo-preview.gif)
 
 [Watch the 61-second MP4 demo](assets/demo/deal-meal-planner-demo.mp4)
@@ -30,19 +32,21 @@ The app helps users:
 - Backend: FastAPI, Python, SQLite
 - Frontend: Vite, React, JavaScript, CSS
 - Data layer: normalized SQLite tables and views
-- Deployment shape: Linux host, PM2-managed services, static frontend serving, Cloudflare Tunnel
+- Operations: scheduled flyer acquisition, Mac mini staging/sync, Ziggy ingestion, and dated health reports
+- Deployment shape: Ziggy Linux host, PM2-managed services, static frontend serving, Cloudflare Tunnel
 - AI-assisted workflows: flyer extraction experiments and recipe generation guardrails
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-    A["Store flyers, PDFs, and weekly ad pages"] --> B["Ingestion and review workflow"]
-    B --> C["SQLite deal database"]
-    C --> D["Normalized views for clean and priceable deals"]
-    D --> E["FastAPI deal intelligence API"]
-    E --> F["React grocery savings dashboard"]
-    F --> G["Best deals, BOGO watch, meal plans, and shopping lists"]
+    A["Store flyers, PDFs, and weekly ad pages"] --> B["Scheduled Mac mini acquisition and review workflow"]
+    B --> C["Sync current flyer artifacts to Ziggy"]
+    C --> D["SQLite deal database"]
+    D --> E["Normalized views for clean, priceable, and promo deals"]
+    E --> F["FastAPI deal intelligence API"]
+    F --> G["React grocery savings dashboard"]
+    G --> H["Best deals, BOGO watch, meal plans, and shopping lists"]
 ```
 
 The core engineering challenge was not just displaying grocery deals. It was making messy, inconsistent, time-sensitive flyer data behave like a usable product system.
@@ -107,7 +111,8 @@ The private product repo includes a small smoke layer for the portfolio demo:
 - Used SQLite because the project needed inspectable local data, normalized views, and a simple deployment path.
 - Separated BOGO/promotional rows from price-comparable rows to avoid misleading rankings.
 - Added smart deal ranking so meal-useful items can outrank cheap but low-utility products like beverages.
-- Designed API parameters for debugging and product behavior, including store filters, flyer scope, price mode, rank mode, limit, and offset.
+- Designed API parameters for debugging and product behavior, including flyer scope, price mode, rank mode, limit, and offset.
+- Added scheduled ingestion and operational health checks so the product can show current weekly coverage instead of stale demo data.
 - Kept generated data, flyer artifacts, API keys, admin credentials, and Cloudflare tunnel details out of public version control.
 
 ## What I Learned
@@ -116,6 +121,7 @@ The private product repo includes a small smoke layer for the portfolio demo:
 - A useful API needs to serve both frontend workflows and debugging workflows.
 - Product polish is often about preventing misleading outputs, not just adding features.
 - Portfolio projects become more credible when they include health checks, setup thinking, screenshots, demos, and a clear explanation of tradeoffs.
+- The production boundary matters: public examples should show safe endpoint shape while protected shopper workflows remain behind auth.
 - My teaching background maps directly to product engineering: break messy problems into learnable systems, design feedback loops, and make complex workflows understandable.
 
 ## Interview Talking Points
@@ -124,15 +130,16 @@ The private product repo includes a small smoke layer for the portfolio demo:
 - Why BOGO deals and numeric shelf-price deals need different treatment.
 - How smart ranking balances price, savings, category, and meal usefulness.
 - How frontend state connects search, filters, meal planning, clipped deals, and grocery lists.
-- What I would harden next: CI, ingestion scheduling, observability, user auth, source/data boundaries, and production deployment.
+- How the Mac mini acquisition pipeline syncs current flyer artifacts into Ziggy for ingestion.
+- What I would harden next: duplicate reduction, broader health checks, user auth, billing, source/data boundaries, and admin review tools.
 
 ## Resume Bullets
 
-- Built a full-stack grocery deal intelligence platform using FastAPI, SQLite, and React to ingest, normalize, rank, and surface weekly retail flyer deals.
+- Built and operate a full-stack grocery deal intelligence platform using FastAPI, SQLite, and React to ingest, normalize, rank, and surface weekly retail flyer deals from six grocery chains.
 - Designed API endpoints for deal metadata, best-deal ranking, BOGO promotions, item search, and deal-aware meal generation.
 - Modeled messy flyer data through SQLite tables and normalized views, separating price-comparable deals from promotional rows.
 - Implemented a React/Vite frontend with API health indicators, store filters, deal cards, search workflows, generated recipe views, and shopping-list flows.
-- Deployed and operated the app on a Linux host with PM2-managed services, static SPA serving, and Cloudflare Tunnel routing.
+- Deployed and operate the app on Ziggy with PM2-managed backend/frontend/landing services and Cloudflare Tunnel routing.
 
 ## Source Code Boundary
 
