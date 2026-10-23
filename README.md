@@ -97,7 +97,7 @@ Shopping-list output designed around stores, deal context, and recipe needs.
 
 ## API Tour
 
-The app keeps shopper-facing screens food-first. The technical endpoint walkthrough lives separately in [API_TOUR.md](API_TOUR.md).
+The app keeps shopper-facing screens food-first. An architecture overview of the service lives separately in [API_TOUR.md](API_TOUR.md).
 
 ## Verification
 
